@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View} from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props {
   title: string;
@@ -8,17 +9,19 @@ interface Props {
 }
 
 export const Fab = ({title, position, onPress}: Props) => {
-  return (
-    <TouchableOpacity
+  return (<View style={[
+    style.fabLocation,
+    position === 'bl' ? style.fabLocationL : style.fabLocationR,
+  ]}>
+    <TouchableNativeFeedback
       onPress={onPress}
-      style={
-        (position === 'bl')? [style.fabLocation, style.fabLocationL]:
-        [style.fabLocation, style.fabLocationR]
-      }>
+      background={TouchableNativeFeedback.Ripple("red",true,30)}
+      >
       <View style={style.fabButton}>
         <Text style={style.fabText}>{title}</Text>
       </View>
-    </TouchableOpacity>
+    </TouchableNativeFeedback>
+    </View>
   );
 };
 
@@ -39,6 +42,15 @@ const style = StyleSheet.create({
     height: 60,
     borderRadius: 50,
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+
+    elevation: 24,
   },
 
   fabText: {
